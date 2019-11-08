@@ -13,20 +13,26 @@ if ($num_reg > 0) {
 }
 
 $texto_char = $_POST['texto_char'];
+echo $texto_char;
 $tamanho_total = strlen($texto_char);
 $texto_array = str_split($texto_char);
 $texto_final = array();
 $teste = false;
 $posicao = 0;
-while ($teste == false) {
+$cebola = '';
+$num32 = 32;
 
+while ($teste == false) {
+    $cebola = $texto_array[$posicao] . $texto_array[$posicao + 1] . $texto_array[$posicao + 2] . $texto_array[$posicao + 3] . $texto_array[$posicao + 4];
     //ler posiçao [0]
-    if ($texto_array[$posicao] == "char(") {
-        //    ler posição [1];
-        if ($texto_array[$posicao + 1] >= 32 && $texto_array[$posicao + 1] <= 126) {
-            if ($texto_array[$posicao + 2] == ")") {
+    if ($cebola == "char(") {
+        //ler posição [1];
+        
+        if (intval($texto_array[$posicao + 5]) != 2 && intval($texto_array[$posicao + 6]) !=0) {
+            if (intval($texto_array[$posicao + 6]) >=0 && intval($texto_array[$posicao+6])<=2) {
+                echo "chegou na segunda posicao";
                 //   traduz da tabela
-                $texto3pos = "{$texto_array[$posicao]}{$texto_array[$posicao + 1]}{$texto_array[$posicao + 2]}";
+                $texto3pos = "{$texto_array[$posicao]}{$texto_array[$posicao + 1]}{$texto_array[$posicao + 2]}{$texto_array[$posicao + 3]}{$texto_array[$posicao + 4]}{$texto_array[$posicao + 5]}{$texto_array[$posicao + 6]}";
 
                 foreach ($tabelaTemp as $key => $value) {
 
