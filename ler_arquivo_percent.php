@@ -12,7 +12,7 @@ if ($num_reg > 0) {
     }
 }
 
-$texto = "%50%61%75%6c%6f";
+$texto = $_POST['texto'];
 $tamanho_total = strlen($texto);
 $texto_array = str_split($texto);
 $texto_final = array();
@@ -64,7 +64,6 @@ while ($teste == false) {
         $teste = true;
     }
 }
-var_dump($texto_final);
 $str = implode("", $texto_final);
 
 

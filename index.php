@@ -28,34 +28,34 @@
 				var novo_texto = $('#ins_texto').val();
 				if (novo_texto.length > 0) {
 					fn_desofusca_percent(novo_texto);
-					$('#result').html("");
+					$('#result').html('');
 				} else {
-					$('#result').html("Insira um texto válido");
+					$('#result').html('Insira um texto válido');
 				}
 			});
 
 			$('#btn_ampersan').click(function() {
-				var novo_texto = $('#ins_texto').val();
-				if (novo_texto.length > 0) {
-					fn_desofusca_ampersan(novo_texto);
-					$('#result_ampersan').html("");
+				var novo_texto_ampersan = $('#ins_texto').val();
+				if (novo_texto_ampersan.length > 0) {
+					fn_desofusca_ampersan(novo_texto_ampersan);
+					$('#result').html('');
 				} else {
-					$('#result_ampersan').html("Insira um texto válido");
+					$('#result').html('Insira um texto válido');
 				}
 			});
 
 			$('#btn_char').click(function() {
-				var novo_texto = $('#ins_texto').val();
-				if (novo_texto.length > 0) {
-					fn_desofusca_ampersan(novo_texto);
-					$('#result_char').html("");
+				var novo_texto_char = $('#ins_texto').val();
+				if (novo_texto_char.length > 0) {
+					fn_desofusca_char(novo_texto_char);
+					$('#result').html('');
 				} else {
-					$('#result_char').html("Insira um texto válido");
+					$('#result').html('Insira um texto válido');
 				}
 			});
 
 			function fn_desofusca_percent(novo_texto) {
-				$('#dv_original').html("");
+				$('#dv_original').html('');
 				$.ajax({
 					url: 'ler_arquivo_percent.php',
 					data: {
@@ -75,20 +75,20 @@
 				});
 			}
 
-			function fn_desofusca_ampersan(novo_texto) {
+			function fn_desofusca_ampersan(novo_texto_ampersan) {
 				$('#dv_original').html("");
 				$.ajax({
 					url: 'ler_arquivo_ampersan.php',
 					data: {
-						texto: novo_texto
+						texto_ampersan: novo_texto_ampersan
 					},
 					timeout: 1200000,
 					async: false,
 					type: 'POST',
 					dataType: 'json',
-					success: function(retorno) {
-						if (retorno.sucesso == 'true') {
-							$('#dv_original').html("Novo texto " + retorno.novo_texto + " processado");
+					success: function(retorno_ampersan) {
+						if (retorno_ampersan.sucesso == 'true') {
+							$('#dv_original').html("Novo texto " + retorno_ampersan.novo_texto_ampersan + " processado");
 						} else {
 							$('#dv_original').html("deu errado");
 						}
@@ -96,20 +96,20 @@
 				});
 			}
 
-			function fn_desofusca_char(novo_texto) {
+			function fn_desofusca_char(novo_texto_char) {
 				$('#dv_original').html("");
 				$.ajax({
 					url: 'ler_arquivo_char.php',
 					data: {
-						texto: novo_texto
+						texto_char: novo_texto_char
 					},
 					timeout: 1200000,
 					async: false,
 					type: 'POST',
 					dataType: 'json',
-					success: function(retorno) {
-						if (retorno.sucesso == 'true') {
-							$('#dv_original').html("Novo texto " + retorno.novo_texto + " processado");
+					success: function(retorno_char) {
+						if (retorno_char.sucesso == 'true') {
+							$('#dv_original').html("Novo texto " + retorno_char.novo_texto_char + " processado");
 						} else {
 							$('#dv_original').html("deu errado");
 						}
