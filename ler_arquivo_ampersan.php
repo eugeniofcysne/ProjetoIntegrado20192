@@ -29,30 +29,23 @@ while ($posicao < $tamanho_total) {
         if ($texto_array[$posicao] == "&") {
             $estado = 1;
             array_push($texto_traduzir, $texto_array[$posicao]);
-            echo "chegou aqui 1";
-            echo " \n";
+
             while ($estado == 1) {
                 $posicao++;
 
-                echo "chegou aqui 2";
-                echo " \n";
                 if ($texto_array[$posicao] == ";") {
-                    echo "chegou aqui 4";
-                    echo " \n";
+
                     $estado = 0;
                     array_push($texto_traduzir, $texto_array[$posicao]);
                     //TRADUZIR
                     $tamanho_traduzir = count($texto_traduzir);
-                    var_dump($texto_traduzir);
+
                     $posicao++;
                     //ver se este for funciona
                     for ($i = 0; $i < $tamanho_traduzir; $i++) {
-                        echo 
+
                         $texto3pos = $texto3pos . "{$texto_traduzir[$i]}";
 
-
-                        echo $texto3pos;
-                        echo " \n";
                     }
 
                     foreach ($tabelaTemp as $key => $value) {
@@ -65,8 +58,6 @@ while ($posicao < $tamanho_total) {
                         }
                     }
                 } else {
-                    echo "chegou aqui 3";
-                    echo " \n";
                     array_push($texto_traduzir, $texto_array[$posicao]);
                 }
             }
@@ -76,8 +67,7 @@ while ($posicao < $tamanho_total) {
         }
     }
 }
-var_dump($texto_final);
 $str = implode("", $texto_final);
 
 
-echo '{"sucesso":"true", "novo_texto":"' . $str . '"}';
+echo '{"sucesso":"true", "novo_texto_ampersan":"' . $str . '"}';
