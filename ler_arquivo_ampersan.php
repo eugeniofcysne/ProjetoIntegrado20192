@@ -1,73 +1,83 @@
 <?php
 include 'conecta_sql.php';
 
-    $sql = "SELECT chave, valor from ampersan;";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $rows = $stmt->fetchAll();
-    $num_reg = count($rows);
-    if($num_reg > 0 ){
-        foreach($rows as $ampersan){
-            $tabelaTemp[$ampersan['chave']] = $ampersan['valor'];
-        }
+$sql = "SELECT chave, valor from ampersan;";
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+$rows = $stmt->fetchAll();
+$num_reg = count($rows);
+if ($num_reg > 0) {
+    foreach ($rows as $ampersan) {
+        $tabelaTemp[$ampersan['chave']] = $ampersan['valor'];
     }
-    echo "<pre>";
-    print_r($tabelaTemp);
-    echo "</pre>";
-    $texto = "%50%61%75%6c%6f";
-    
-$tamanho_total=strlen($texto);
-$texto_array=str_split($texto);
-$texto_final=array();
-$teste=false;
-$posicao=0;
-while($teste==false){
+}
 
-    //ler posiçao [0]
-    if($texto_array[$posicao]=="%"){//if  posicao [0] == "%"{
-    //    ler posição [1];
-        if($texto_array[$posicao+1]>1&&$texto_array[$posicao+1]<8){//if posição 1 >1 e posicao 1 < 8 {
-            //ler posicao [2]
-            if($texto_array[$posicao+2]=="0"||$texto_array[$posicao+2]=="1"||$texto_array[$posicao+2]=="2"||$texto_array[$posicao+2]=="3"||$texto_array[$posicao+2]=="4"||
-            $texto_array[$posicao+2]=="5"||$texto_array[$posicao+2]=="6"||$texto_array[$posicao+2]=="7"||$texto_array[$posicao+2]=="8"||$texto_array[$posicao+2]=="9"||
-            $texto_array[$posicao+2]=="a"||$texto_array[$posicao+2]=="b"||$texto_array[$posicao+2]=="c"||$texto_array[$posicao+2]=="d"||$texto_array[$posicao+2]=="e"||
-            $texto_array[$posicao+2]=="f"){//        if posicao 2 = (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f){
+$texto_ampersan = $_POST['texto_ampersan'];
+$tamanho_total = strlen($texto_ampersan); //retorna tamanho da string
+$texto_array = str_split($texto_ampersan); //converter string em array
+$texto_final = array();
+$texto_traduzir = array();
+$posicao = 0;
+$estado = 0;
+$texto3pos = '';
+$i = 0;
+$tamanho_traduzir = 0;
 
+while ($posicao < $tamanho_total) {
 
-
-                //   traduz da tabela
-                $texto3pos="{$texto_array[$posicao]}{$texto_array[$posicao+1]}{$texto_array[$posicao+2]}";
-
-
-                foreach($tabelaTemp as $key => $value) {
-
-                    if ($key == $texto3pos){
-
-                        array_push($texto_final,$value);
-                        $posicao=$posicao+3;
-                        break;      
-                    }
-                }
-            }else{
-                array_push($texto_final,$texto_array[$posicao]);
+    if ($estado == 0) {
+        if ($texto_array[$posicao] == "&") {
+            $estado = 1;
+            array_push($texto_traduzir, $texto_array[$posicao]);
+            echo "chegou aqui 1";
+            echo " \n";
+            while ($estado == 1) {
                 $posicao++;
+
+                echo "chegou aqui 2";
+                echo " \n";
+                if ($texto_array[$posicao] == ";") {
+                    echo "chegou aqui 4";
+                    echo " \n";
+                    $estado = 0;
+                    array_push($texto_traduzir, $texto_array[$posicao]);
+                    //TRADUZIR
+                    $tamanho_traduzir = count($texto_traduzir);
+                    var_dump($texto_traduzir);
+                    $posicao++;
+                    //ver se este for funciona
+                    for ($i = 0; $i < $tamanho_traduzir; $i++) {
+                        echo 
+                        $texto3pos = $texto3pos . "{$texto_traduzir[$i]}";
+
+
+                        echo $texto3pos;
+                        echo " \n";
+                    }
+
+                    foreach ($tabelaTemp as $key => $value) {
+
+                        if ($key == $texto3pos) {
+
+                            array_push($texto_final, $value);
+
+                            break;
+                        }
+                    }
+                } else {
+                    echo "chegou aqui 3";
+                    echo " \n";
+                    array_push($texto_traduzir, $texto_array[$posicao]);
+                }
             }
-        }else{
-            array_push($texto_final,$texto_array[$posicao]);
+        } else{
+            array_push($texto_final, $texto_array[$posicao]);
             $posicao++;
         }
-    }else{
-        array_push($texto_final,$texto_array[$posicao]);
-        $posicao++;
-    }
-
-    if($posicao>=$tamanho_total){
-        $teste=true;
     }
 }
 var_dump($texto_final);
-$str=implode("", $texto_final);
+$str = implode("", $texto_final);
 
 
-echo '{"sucesso":"true", "novo_texto":"'. $str . '"}';	
-
+echo '{"sucesso":"true", "novo_texto":"' . $str . '"}';
