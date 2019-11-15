@@ -6,6 +6,35 @@
 	<title>Desofuscamento</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<style>
+		.topnav {
+			background-color: #009785;
+			overflow: hidden;
+		}
+
+		.topnav a {
+			float: left;
+			display: block;
+			color: #f2f2f2;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+
+		.topnav a:hover {
+			background-color: #009785;
+			color: black;
+		}
+
+		.topnav a.active {
+			background-color: #009785;
+			color: white;
+		}
+
+		.topnav .icon {
+			display: none;
+		}
+
 		iframe {
 			width: 100%;
 			height: 100px;
@@ -14,160 +43,43 @@
 		.jumbotron {
 			padding: 0px;
 		}
+
+		p {
+			margin-left: 30pt;
+			margin-right: 30pt;
+		}
+
+		.footer {
+			background-color: #009785;
+			overflow: hidden;
+			height: 50px;
+			bottom: 0;
+			width: 100%;
+		}
 	</style>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-		< script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-		integrity = "sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-		crossorigin = "anonymous" >
-	</script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script>
-		$(document).ready(function() {
-
-			$('#btn_percent').click(function() {
-				var novo_texto = $('#ins_texto').val();
-				if (novo_texto.length > 0) {
-					fn_desofusca_percent(novo_texto);
-					$('#result').html('');
-				} else {
-					$('#result').html('Insira um texto válido');
-				}
-			});
-
-			$('#btn_ampersan').click(function() {
-				var novo_texto_ampersan = $('#ins_texto').val();
-				if (novo_texto_ampersan.length > 0) {
-					fn_desofusca_ampersan(novo_texto_ampersan);
-					$('#result').html('');
-				} else {
-					$('#result').html('Insira um texto válido');
-				}
-			});
-
-			$('#btn_char').click(function() {
-				var novo_texto_char = $('#ins_texto').val();
-				if (novo_texto_char.length > 0) {
-					fn_desofusca_char(novo_texto_char);
-					$('#result').html('');
-				} else {
-					$('#result').html('Insira um texto válido');
-				}
-			});
-
-			function fn_desofusca_percent(novo_texto) {
-				$('#dv_original').html('');
-				$.ajax({
-					url: 'ler_arquivo_percent.php',
-					data: {
-						texto: novo_texto
-					},
-					timeout: 1200000,
-					async: false,
-					type: 'POST',
-					dataType: 'json',
-					success: function(retorno) {
-						if (retorno.sucesso == 'true') {
-							$('#dv_original').html("Novo texto " + retorno.novo_texto + " processado");
-						} else {
-							$('#dv_original').html("deu errado");
-						}
-					}
-				});
-			}
-
-			function fn_desofusca_ampersan(novo_texto_ampersan) {
-				$('#dv_original').html("");
-				$.ajax({
-					url: 'ler_arquivo_ampersan.php',
-					data: {
-						texto_ampersan: novo_texto_ampersan
-					},
-					timeout: 1200000,
-					async: false,
-					type: 'POST',
-					dataType: 'json',
-					success: function(retorno_ampersan) {
-						if (retorno_ampersan.sucesso == 'true') {
-							$('#dv_original').html("Novo texto " + retorno_ampersan.novo_texto_ampersan + " processado");
-						} else {
-							$('#dv_original').html("deu errado");
-						}
-					}
-				});
-			}
-
-			function fn_desofusca_char(novo_texto_char) {
-				$('#dv_original').html("");
-				$.ajax({
-					url: 'ler_arquivo_char.php',
-					data: {
-						texto_char: novo_texto_char
-					},
-					timeout: 1200000,
-					async: false,
-					type: 'POST',
-					dataType: 'json',
-					success: function(retorno_char) {
-						if (retorno_char.sucesso == 'true') {
-							$('#dv_original').html("Novo texto " + retorno_char.novo_texto_char + " processado");
-						} else {
-							$('#dv_original').html("deu errado");
-						}
-					}
-				});
-			}
-		});
-	</script>
+	<div class="topnav" id="myTopnav">
+		<a href="index.php">Página Principal</a>
+		<a href="desofusca.php">Desofuscamento</a>
+		<a href="contato.php">Contato</a>
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+			<i class="fa fa-bars"></i>
+		</a>
+	</div>
 </head>
 
 <body>
-	<div class="jumbotron text-center">
-		<h1>DESOFUSCAMENTO</h1>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="card">
-					<div class="card-body">
-						<form action="desofusca_arquivo.php" method="post" name="enviar" id="enviar" enctype="multipart/form-data" target="iframeUpload">
-							<div class="form-group">
-								<label for="arq">Arquivo:</label>
-								<input type="file" name="arquivos[]" class="form-control" id="arq">
-							</div>
-							<button type="submit" id="bt_carregar" class="btn">Carregar</button>
-							<button type="reset" class="btn">Limpar</button>
-						</form>
-						<iframe name="iframeUpload" id="iframeUpload"></iframe>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header">Leitura de campo input</div>
-			<div class="card-body">
-				<form>
-					<div class="form-group mb-3 input-group-sm">
-						<label for="arq">Input texto: </label>
-						<input type="text" name="ins_texto" class="form-control" id="ins_texto" placeholder="Input texto">
-						<br>
-						<button type="button" id="btn_percent" class="btn">Carregar Percent</button>
-						<button type="button" id="btn_ampersan" class="btn">Carregar Ampersan</button>
-						<button type="button" id="btn_char" class="btn">Carregar Char</button>
-						<span id="result"></span>
-					</div>
-				</form>
-				<div class="row">
-					<div class="col">
-						<div class="card">
-							<div class="card-header">Texto desofuscado</div>
-							<div class="card-body">
-								<div id="dv_original"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<h2 align="center">Projeto Integrador</h2>
+	<h3 align="center">Desofuscamento</h3>
+	<p>&emsp;Neste projeto integrador foi proposto aos alunos criar um desofuscador de dados, mais
+		especificamente, um desofuscador de URL usado para tornar legível logs de servidores Web que sofrem ataque de ofuscamento nas URLs.
+		<br>&emsp;O desofuscador de URL deve ler a string passada como endereço (URL) e decodificar a string lida para algo legível por humanos. São usados códigos com entidades HTML, hexadecimal e código ASCII.</p>
+	<p>Para acessar a proposta do PI na integra, clique aqui: <a href="proposta.pdf">Proposta PI</a> </p>
+
+	</p>
+	<h2 align="center">Sobre o SENAI </h2>
+	<p>&emsp;O Serviço Nacional de Aprendizagem Industrial (SENAI) tem como objetivo estimular a inovação industrial por meio da educação, consultoria, pesquisa aplicada e serviços técnicos e tecnológicos que são decisivos para a competitividade das empresas do Estado e do Brasil.
+		<br>&emsp;É um dos cincos maiores complexos de educação profissional do mundo e o maior da América Latina e reconhecido como modelo de educação profissional, pela qualidade dos serviços que promove e pela aposta em formatos educacionais diferenciados e inovadores, que capacitam profissionais em cursos presenciais e a distância, formando trabalhadores aptos a contribuir para o desenvolvimento da indústria. <br> Fonte: <a href="http://sc.senai.br/sobre-senai">SENAI</a></p>
 </body>
+<footer class="footer" ><img src="senai.png" aling= "left"></footer>
 
 </html>
