@@ -1,5 +1,6 @@
 <?php
 include 'conecta_sql.php';
+include 'desofusca_texto_percent_func.php';
 
 $arq_caminho = getcwd();
 chdir($arq_caminho);
@@ -38,18 +39,15 @@ echo "<br>Arquivo: " . $arquivo_entrada;
 $array_arq = array();
 $arq = fopen($arq_caminho . "\\" . $arquivo_entrada, "r");
 while(!feof($arq)){
-	$linha = fgets($arq);
-	$new_array = explode(chr(10),$linha);
-	$array_arq[$new_array[1]] = $new_array[2];
+    $linha = fgets($arq);
+    $linha_desofuscada=desofusca_linha_percent($linha);
+    echo $linha_desofuscada . "<br>";
+    
+    // $new_array = explode(chr(10),$linha);
+	// $array_arq[$new_array[1]] = $new_array[2];
 }
 fclose($arq);
 
-
-$quant_linhas = count($array_arq);
-
-foreach ($array_arq as $key => $frase) {
-    //aqui vai a lógica de traduzir cada linha
-    //perguntar para professor como mandar isso aqui para a página de desofusca_texto
-}
+    
 
 
