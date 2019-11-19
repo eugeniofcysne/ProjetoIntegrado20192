@@ -1,70 +1,55 @@
 <?php
 include 'conecta_sql.php';
 
-$sql = "SELECT chave, valor from percent;";
-$stmt = $dbh->prepare($sql);
-$stmt->execute();
-$rows = $stmt->fetchAll();
-$num_reg = count($rows);
-if ($num_reg > 0) {
-    foreach ($rows as $percent) {
-        $tabelaTemp[$percent['chave']] = $percent['valor'];
-    }
-}
-
-$texto = $_POST['texto'];
-$tamanho_total = strlen($texto);
-$texto_array = str_split($texto);
-$texto_final = array();
-$teste = false;
-$posicao = 0;
-while ($teste == false) {
-
-    //ler posiçao [0]
-    if ($texto_array[$posicao] == "%") { //if  posicao [0] == "%"{
-        //    ler posição [1];
-        if ($texto_array[$posicao + 1] > 1 && $texto_array[$posicao + 1] < 8) { //if posição 1 >1 e posicao 1 < 8 {
-            //ler posicao [2]
-            if (
-                $texto_array[$posicao + 2] == "0" || $texto_array[$posicao + 2] == "1" || $texto_array[$posicao + 2] == "2" || $texto_array[$posicao + 2] == "3" || $texto_array[$posicao + 2] == "4" ||
-                $texto_array[$posicao + 2] == "5" || $texto_array[$posicao + 2] == "6" || $texto_array[$posicao + 2] == "7" || $texto_array[$posicao + 2] == "8" || $texto_array[$posicao + 2] == "9" ||
-                $texto_array[$posicao + 2] == "a" || $texto_array[$posicao + 2] == "b" || $texto_array[$posicao + 2] == "c" || $texto_array[$posicao + 2] == "d" || $texto_array[$posicao + 2] == "e" ||
-                $texto_array[$posicao + 2] == "f"
-            ) { //        if posicao 2 = (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f){
-
-
-
-                //   traduz da tabela
-                $texto3pos = "{$texto_array[$posicao]}{$texto_array[$posicao + 1]}{$texto_array[$posicao + 2]}";
-
-
-                foreach ($tabelaTemp as $key => $value) {
-
-                    if ($key == $texto3pos) {
-
-                        array_push($texto_final, $value);
-                        $posicao = $posicao + 3;
-                        break;
-                    }
-                }
-            } else {
-                array_push($texto_final, $texto_array[$posicao]);
-                $posicao++;
+$arq_caminho = getcwd();
+chdir($arq_caminho);
+if (isset($_FILES)) {
+    $i = 0;
+    //$msg = array( );
+    $arquivos = array(array());
+    foreach ($_FILES as $key => $info) {
+        foreach ($info as $key => $dados) {
+            for ($i = 0; $i < sizeof($dados); $i++) {
+                $arquivos[$i][$key] = $info[$key][$i];
             }
-        } else {
-            array_push($texto_final, $texto_array[$posicao]);
-            $posicao++;
         }
-    } else {
-        array_push($texto_final, $texto_array[$posicao]);
-        $posicao++;
     }
-
-    if ($posicao >= $tamanho_total) {
-        $teste = true;
+    foreach ($arquivos as $file) {
+        if ($file['name'] != '') {
+            $arquivoTmp = $file['tmp_name'];
+            $arquivo = $file['name'];
+            move_uploaded_file($arquivoTmp, $arq_caminho . $arquivo);
+        } else {
+            echo "Arquivo vazio ou não informado.";
+        }
     }
+} else {
+    echo "Problemas na carga dos arquivos.\n";
 }
-$str = implode("", $texto_final);
+
+// Leitura de arquivo TXT
+
+echo "Arquivo processado..." . $arquivo;
+$arquivo_entrada = $arquivo;
+echo "<br>Caminho: " . $arq_caminho;
+echo "<br>Arquivo: " . $arquivo_entrada;
 
 
-echo '{"sucesso":"true", "novo_texto":"' . $str . '"}';
+$array_arq = array();
+$arq = fopen($arq_caminho . "\\" . $arquivo_entrada, "r");
+while(!feof($arq)){
+	$linha = fgets($arq);
+	$new_array = explode(chr(10),$linha);
+	$array_arq[$new_array[1]] = $new_array[2];
+}
+fclose($arq);
+
+
+$quant_linhas = count($array_arq);
+
+foreach ($array_arq as $key => $frase) {
+    //aqui vai a lógica de traduzir cada linha
+    //perguntar para professor como mandar isso aqui para a página de desofusca_texto
+}
+
+

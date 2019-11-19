@@ -104,7 +104,7 @@
             function fn_desofusca_percent(novo_texto) {
                 $('#dv_original').html('');
                 $.ajax({
-                    url: 'ler_arquivo_percent.php',
+                    url: 'desofusca_texto_percent.php',
                     data: {
                         texto: novo_texto
                     },
@@ -125,7 +125,7 @@
             function fn_desofusca_ampersan(novo_texto_ampersan) {
                 $('#dv_original').html("");
                 $.ajax({
-                    url: 'ler_arquivo_ampersan.php',
+                    url: 'desofusca_texto_ampersan.php',
                     data: {
                         texto_ampersan: novo_texto_ampersan
                     },
@@ -146,7 +146,7 @@
             function fn_desofusca_char(novo_texto_char) {
                 $('#dv_original').html("");
                 $.ajax({
-                    url: 'ler_arquivo_char.php',
+                    url: 'desofusca_texto_char.php',
                     data: {
                         texto_char: novo_texto_char
                     },
