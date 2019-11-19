@@ -43,13 +43,16 @@
         .jumbotron {
             padding: 0px;
         }
+
         .footer {
-			background-color: #009785;
-			overflow: hidden;
-			height: 50px;
-			bottom: 0;
-			width: 100%;
-		}
+            background-color: #009785;
+            overflow: hidden;
+            height: 50px;
+            bottom: 0;
+            width: 100%;
+            position:absolute;
+        }
+        
     </style>
     <div class="topnav" id="myTopnav">
         <a href="index.php">Página Principal</a>
@@ -60,9 +63,16 @@
         </a>
     </div>
 </head>
+<br>
 
 <body>
-
+    <h3 align="center">Contato</h3> <br>
+    <p align="center">Para dúvidas, acesse: <a href="http://transparencia.sc.senai.br/fale-conosco?entidade=senai"> <br>Fale Conosco</a> <br>Para sujestões ou reclamações ligue:<br>0800 7070 3535</p>
+    <div align="center">
+        <img src="/projetopi/senaicontato.png">
+    </div>
 </body>
-<footer class="footer" ><img src="senai.png" aling= "left"></footer>
+
+<footer class="footer"><img src="senai.png" aling="left"></footer>
+
 </html>

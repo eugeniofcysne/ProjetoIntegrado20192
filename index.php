@@ -55,6 +55,7 @@
 			height: 50px;
 			bottom: 0;
 			width: 100%;
+			position:absolute;
 		}
 	</style>
 	<div class="topnav" id="myTopnav">
@@ -76,7 +77,7 @@
 	<p>Para acessar a proposta do PI na integra, clique aqui: <a href="proposta.pdf">Proposta PI</a> </p>
 
 	</p>
-	<h2 align="center">Sobre o SENAI </h2>
+	<h2 align="center">Sobre o SENAI</h2>
 	<p>&emsp;O Serviço Nacional de Aprendizagem Industrial (SENAI) tem como objetivo estimular a inovação industrial por meio da educação, consultoria, pesquisa aplicada e serviços técnicos e tecnológicos que são decisivos para a competitividade das empresas do Estado e do Brasil.
 		<br>&emsp;É um dos cincos maiores complexos de educação profissional do mundo e o maior da América Latina e reconhecido como modelo de educação profissional, pela qualidade dos serviços que promove e pela aposta em formatos educacionais diferenciados e inovadores, que capacitam profissionais em cursos presenciais e a distância, formando trabalhadores aptos a contribuir para o desenvolvimento da indústria. <br> Fonte: <a href="http://sc.senai.br/sobre-senai">SENAI</a></p>
 </body>
