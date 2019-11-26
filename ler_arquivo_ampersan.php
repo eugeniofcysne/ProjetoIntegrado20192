@@ -1,73 +1,52 @@
 <?php
 include 'conecta_sql.php';
+include 'desofusca_texto_ampersan_func.php';
 
-$sql = "SELECT chave, valor from ampersan;";
-$stmt = $dbh->prepare($sql);
-$stmt->execute();
-$rows = $stmt->fetchAll();
-$num_reg = count($rows);
-if ($num_reg > 0) {
-    foreach ($rows as $ampersan) {
-        $tabelaTemp[$ampersan['chave']] = $ampersan['valor'];
-    }
-}
-
-$texto_ampersan = $_POST['texto_ampersan'];
-$tamanho_total = strlen($texto_ampersan); //retorna tamanho da string
-$texto_array = str_split($texto_ampersan); //converter string em array
-$texto_final = array();
-$texto_traduzir = array();
-$posicao = 0;
-$estado = 0;
-$texto3pos = '';
-$i = 0;
-$tamanho_traduzir = 0;
-
-while ($posicao < $tamanho_total) {
-
-    if ($estado == 0) {
-        if ($texto_array[$posicao] == "&") {
-            $estado = 1;
-            array_push($texto_traduzir, $texto_array[$posicao]);
-
-            while ($estado == 1) {
-                $posicao++;
-
-                if ($texto_array[$posicao] == ";") {
-
-                    $estado = 0;
-                    array_push($texto_traduzir, $texto_array[$posicao]);
-                    //TRADUZIR
-                    $tamanho_traduzir = count($texto_traduzir);
-
-                    $posicao++;
-                    //ver se este for funciona
-                    for ($i = 0; $i < $tamanho_traduzir; $i++) {
-
-                        $texto3pos = $texto3pos . "{$texto_traduzir[$i]}";
-
-                    }
-
-                    foreach ($tabelaTemp as $key => $value) {
-
-                        if ($key == $texto3pos) {
-
-                            array_push($texto_final, $value);
-
-                            break;
-                        }
-                    }
-                } else {
-                    array_push($texto_traduzir, $texto_array[$posicao]);
-                }
+$arq_caminho = getcwd();
+if (isset($_FILES)) {
+    $i = 0;
+    //$msg = array( );
+    $arquivos = array(array());
+    foreach ($_FILES as $key => $info) {
+        foreach ($info as $key => $dados) {
+            for ($i = 0; $i < sizeof($dados); $i++) {
+                $arquivos[$i][$key] = $info[$key][$i];
             }
-        } else{
-            array_push($texto_final, $texto_array[$posicao]);
-            $posicao++;
         }
     }
+    foreach ($arquivos as $file) {
+        if ($file['name'] != '') {
+            $arquivoTmp = $file['tmp_name'];
+            $arquivo = $file['name'];
+            move_uploaded_file($arquivoTmp, $arq_caminho . '\\' . $arquivo);
+        } else {
+            echo "Arquivo vazio ou não informado.";
+        }
+    }
+} else {
+    echo "Problemas na carga dos arquivos.\n";
 }
-$str = implode("", $texto_final);
+
+// Leitura de arquivo TXT
+
+echo "Arquivo processado..." . $arquivo;
+$arquivo_entrada = $arquivo;
+echo "<br>Caminho: " . $arq_caminho;
+echo "<br>Arquivo: " . $arquivo_entrada;
+echo "<br>Resultado:<br>";
+
+$array_arq = array();
+$arq = fopen($arq_caminho . "\\" . $arquivo_entrada, "r");
+while(!feof($arq)){
+    $linha = fgets($arq);
+    $linha_desofuscada=desofusca_linha_ampersan($linha);
+    echo $linha_desofuscada . "<br>";
+    
+    // $new_array = explode(chr(10),$linha);
+	// $array_arq[$new_array[1]] = $new_array[2];
+}
+fclose($arq);
+
+    
 
 
-echo '{"sucesso":"true", "novo_texto_ampersan":"' . $str . '"}';

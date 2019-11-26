@@ -70,11 +70,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            $('.carregar').click(function() {
-                $('#enviar_form').attr('action',$(this).attr('pagina'));
-                $('#enviar_form').submit();
-            });
-            
+
+
             $('#btn_percent').click(function() {
                 var novo_texto = $('#ins_texto').val();
                 if (novo_texto.length > 0) {
@@ -139,7 +136,6 @@
                     dataType: 'json',
                     success: function(retorno_ampersan) {
                         if (retorno_ampersan.sucesso == 'true') {
-                            alert (retorno_ampersan.novo_texto_ampersan);
                             $('#dv_original').html("Novo texto " + retorno_ampersan.novo_texto_ampersan + " processado");
                         } else {
                             $('#dv_original').html("deu errado");
@@ -179,17 +175,33 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="post" name="enviar_form" id="enviar_form" enctype="multipart/form-data" target="iframeUpload">
+                        <form action="ler_arquivo_percent.php" method="post" name="enviar_percent" id="enviar_percent" enctype="multipart/form-data" target="iframeUpload">
                             <div class="form-group">
-                                <label for="arq">Escolha um arquivo para leitura: </label>
+                                <label for="arq">Escolha um arquivo para leitura Percent: </label>
                                 <input type="file" name="arquivos[]" class="form-control" id="arq">
                             </div>
-                            <button type="submit" pagina= "ler_arquivo_percent.php" id="bt_carregar_percent" class="btn carregar">Carregar Percent</button>
-                            <button type="submit" pagina= "ler_arquivo_char.php" id="bt_carregar_char" class="btn carregar">Carregar Char</button>
-                            <button type="submit" pagina= "ler_arquivo_ampersan.php" id="bt_carregar_ampersan" class="btn carregar">Carregar Ampersan</button>
+                            <button type="submit" id="bt_carregar_percent" class="btn">Carregar Percent</button>
+                            
                             <button type="reset" class="btn">Limpar</button>
                         </form>
-                        
+                        <form action="ler_arquivo_char.php" method="post" name="enviar_char" id="enviar_char" enctype="multipart/form-data" target="iframeUpload">
+                            <div class="form-group">
+                                <label for="arq">Escolha um arquivo para leitura Char: </label>
+                                <input type="file" name="arquivos[]" class="form-control" id="arq">
+                            </div>
+                            <button type="submit" id="bt_carregar_char" class="btn">Carregar Char</button>
+                            
+                            <button type="reset" class="btn">Limpar</button>
+                        </form>
+                        <form action="ler_arquivo_ampersan.php" method="post" name="enviar_ampersan" id="enviar_ampersan" enctype="multipart/form-data" target="iframeUpload">
+                            <div class="form-group">
+                                <label for="arq">Escolha um arquivo para leitura Ampersan: </label>
+                                <input type="file" name="arquivos[]" class="form-control" id="arq">
+                            </div>
+                            <button type="submit" id="bt_carregar_ampersan" class="btn">Carregar Ampersan</button>
+                            
+                            <button type="reset" class="btn">Limpar</button>
+                        </form>
                         <iframe name="iframeUpload" id="iframeUpload"></iframe>
 
 
@@ -206,9 +218,9 @@
                     <div class="form-group mb-3 input-group-sm">
                         <input type="text" name="ins_texto" class="form-control" id="ins_texto" placeholder="Digite seu texto aqui">
                         <br>
-                        <button type="button" id="btn_percent" class="btn">Carregar Percent</button>
-                        <button type="button" id="btn_ampersan" class="btn">Carregar Ampersan</button>
-                        <button type="button" id="btn_char" class="btn">Carregar Char</button>
+                        <button type="submit" id="btn_percent" class="btn">Carregar Percent</button>
+                        <button type="submit" id="btn_ampersan" class="btn">Carregar Ampersan</button>
+                        <button type="submit" id="btn_char" class="btn">Carregar Char</button>
                         <span id="result"></span>
                     </div>
                 </form>

@@ -3,7 +3,6 @@ include 'conecta_sql.php';
 include 'desofusca_texto_percent_func.php';
 
 $arq_caminho = getcwd();
-chdir($arq_caminho);
 if (isset($_FILES)) {
     $i = 0;
     //$msg = array( );
@@ -19,7 +18,7 @@ if (isset($_FILES)) {
         if ($file['name'] != '') {
             $arquivoTmp = $file['tmp_name'];
             $arquivo = $file['name'];
-            move_uploaded_file($arquivoTmp, $arq_caminho . $arquivo);
+            move_uploaded_file($arquivoTmp, $arq_caminho . '\\' . $arquivo);
         } else {
             echo "Arquivo vazio ou não informado.";
         }
@@ -34,7 +33,7 @@ echo "Arquivo processado..." . $arquivo;
 $arquivo_entrada = $arquivo;
 echo "<br>Caminho: " . $arq_caminho;
 echo "<br>Arquivo: " . $arquivo_entrada;
-
+echo "<br>Resultado:<br>";
 
 $array_arq = array();
 $arq = fopen($arq_caminho . "\\" . $arquivo_entrada, "r");

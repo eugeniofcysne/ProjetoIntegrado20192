@@ -1,8 +1,9 @@
 <?php
 include 'conecta_sql.php';
-include 'desofusca_texto_char_func.php';
+include 'desofusca_texto_ampersan_func.php';
 
 $arq_caminho = getcwd();
+chdir($arq_caminho);
 if (isset($_FILES)) {
     $i = 0;
     //$msg = array( );
@@ -18,7 +19,7 @@ if (isset($_FILES)) {
         if ($file['name'] != '') {
             $arquivoTmp = $file['tmp_name'];
             $arquivo = $file['name'];
-            move_uploaded_file($arquivoTmp, $arq_caminho . '\\' . $arquivo);
+            move_uploaded_file($arquivoTmp, $arq_caminho . $arquivo);
         } else {
             echo "Arquivo vazio ou não informado.";
         }
@@ -39,7 +40,7 @@ $array_arq = array();
 $arq = fopen($arq_caminho . "\\" . $arquivo_entrada, "r");
 while(!feof($arq)){
     $linha = fgets($arq);
-    $linha_desofuscada=desofusca_linha_char($linha);
+    $linha_desofuscada=desofusca_linha_ampersan($linha);
     echo $linha_desofuscada . "<br>";
     
     // $new_array = explode(chr(10),$linha);
