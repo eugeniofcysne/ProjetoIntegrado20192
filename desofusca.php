@@ -139,7 +139,6 @@
                     dataType: 'json',
                     success: function(retorno_ampersan) {
                         if (retorno_ampersan.sucesso == 'true') {
-                            alert (retorno_ampersan.novo_texto_ampersan);
                             $('#dv_original').html("Novo texto " + retorno_ampersan.novo_texto_ampersan + " processado");
                         } else {
                             $('#dv_original').html("deu errado");

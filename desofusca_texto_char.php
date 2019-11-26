@@ -30,7 +30,7 @@ while ($teste == false) {
 
             //ler posição [1];
 
-            if (intval($texto_array[$posicao + 5]) != 2 && intval($texto_array[$posicao + 6]) != 0) {
+            if (intval($texto_array[$posicao + 5]) != 2 && intval($texto_array[$posicao + 5]) != 0) {
 
                 if (intval($texto_array[$posicao + 6]) >= 0 && intval($texto_array[$posicao + 6]) < 10) {
                     //ATÉ AQUI TA BELEZA
