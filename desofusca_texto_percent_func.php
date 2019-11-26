@@ -70,6 +70,9 @@ function desofusca_linha_percent($texto)
     }
     $str = implode("", $texto_final);
 
-return($str);
-    
+    if($str==$texto){
+        return(htmlentities($str));
+    }else{
+        return ($str);
+    }
 }

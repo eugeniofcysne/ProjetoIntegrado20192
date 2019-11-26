@@ -97,4 +97,9 @@ while ($teste == false) {
 }
 $str = implode("", $texto_final);
 
-echo '{"sucesso":"true", "novo_texto_char":"' . $str . '"}';
+
+if($str==$texto_char){
+    echo '{"sucesso":"true", "novo_texto_char":"' . htmlentities($str) . '"}';
+}else{
+    echo '{"sucesso":"true", "novo_texto_char":"' . $str . '"}';
+}

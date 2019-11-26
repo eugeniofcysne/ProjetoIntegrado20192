@@ -99,5 +99,10 @@ while ($teste == false) {
 }
 $str = implode("", $texto_final);
 
-return ($str);
+if($str==$texto_char){
+    return(htmlentities($str));
+}else{
+    return ($str);
+}
+
 }
