@@ -69,7 +69,7 @@
     <h3 align="center">Contato</h3> <br>
     <p align="center">Para dúvidas, acesse: <a href="http://transparencia.sc.senai.br/fale-conosco?entidade=senai"> <br>Fale Conosco</a> <br>Para sujestões ou reclamações ligue:<br>0800 7070 3535</p>
     <div align="center">
-        <img src="/projetopi/senaicontato.png">
+        <img src="senaicontato.png">
     </div>
 </body>
 

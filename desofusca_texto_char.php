@@ -7,8 +7,8 @@ $stmt->execute();
 $rows = $stmt->fetchAll();
 $num_reg = count($rows);
 if ($num_reg > 0) {
-    foreach ($rows as $percent) {
-        $tabelaTemp[$percent['chave']] = $percent['valor'];
+    foreach ($rows as $char) {
+        $tabelaTemp[$tabela_char['chave']] = $tabelas_char['valor'];
     }
 }
 
@@ -30,7 +30,7 @@ while ($teste == false) {
 
             //ler posição [1];
 
-            if (intval($texto_array[$posicao + 5]) != 2 && intval($texto_array[$posicao + 5]) != 0) {
+            if (intval($texto_array[$posicao + 5]) != 2 && intval($texto_array[$posicao + 6]) != 0) {
 
                 if (intval($texto_array[$posicao + 6]) >= 0 && intval($texto_array[$posicao + 6]) < 10) {
                     //ATÉ AQUI TA BELEZA
@@ -97,9 +97,4 @@ while ($teste == false) {
 }
 $str = implode("", $texto_final);
 
-
-if($str==$texto_char){
-    echo '{"sucesso":"true", "novo_texto_char":"' . htmlentities($str) . '"}';
-}else{
-    echo '{"sucesso":"true", "novo_texto_char":"' . $str . '"}';
-}
+echo '{"sucesso":"true", "novo_texto_char":"' . $str . '"}';

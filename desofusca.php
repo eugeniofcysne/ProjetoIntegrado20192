@@ -55,9 +55,9 @@
         }
     </style>
     <div class="topnav" id="myTopnav">
-        <a href="index.php">Página Principal</a>
-        <a href="desofusca.php">Desofuscamento</a>
-        <a href="contato.php">Contato</a>
+    <img src="senai.png" aling= "left">
+       
+        
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
@@ -139,6 +139,7 @@
                     dataType: 'json',
                     success: function(retorno_ampersan) {
                         if (retorno_ampersan.sucesso == 'true') {
+                            alert (retorno_ampersan.novo_texto_ampersan);
                             $('#dv_original').html("Novo texto " + retorno_ampersan.novo_texto_ampersan + " processado");
                         } else {
                             $('#dv_original').html("deu errado");
@@ -226,6 +227,6 @@
     </div>
     <br>
 </body>
-<footer class="footer" ><img src="senai.png" aling= "left"></footer>
 
-</html>
+
+</html><a href="index.php">Voltar para página principal</a>
